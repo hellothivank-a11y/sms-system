@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+    /* Base Palette - Google UX & Charcoal */
+    --color-primary: #1A73E8; 
+    --color-primary-hover: #1557B0;
+    
+    /* Light Theme */
+    --bg-base: #FFFFFF;
+    --bg-surface: #F8F9FA;
+    --text-main: #202124; /* Charcoal Black */
+    --text-muted: #5F6368;
+    --border-subtle: #DADCE0;
+    --acrylic-bg: rgba(255, 255, 255, 0.85);
+    --shadow-fluent: 0 4px 24px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="dark"] {
+    --bg-base: #121212;
+    --bg-surface: #202124; 
+    --text-main: #E8EAED;
+    --text-muted: #9AA0A6;
+    --border-subtle: #3C4043;
+    --acrylic-bg: rgba(32, 33, 36, 0.85);
+    --shadow-fluent: 0 4px 24px rgba(0, 0, 0, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Navbar - Microsoft Fluent Acrylic */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: var(--acrylic-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-subtle);
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-main);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+}
+
+.nav-links { display: flex; gap: 2.5rem; }
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--text-main); }
+
+.icon-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* Layout & Negative Space */
+.section-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 180px 2rem 100px; 
+}
+
+.badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+}
+
+.hero-title {
+    font-size: 4rem;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    max-width: 800px;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+    max-width: 600px;
+}
+
+.hero-actions { display: flex; gap: 1rem; }
+
+/* Buttons */
+.btn {
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.btn-primary {
+    background-color: var(--color-primary);
+    color: #FFFFFF;
+    border: 1px solid var(--color-primary);
+}
+.btn-primary:hover { background-color: var(--color-primary-hover); }
+.btn-secondary {
+    background-color: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--border-subtle);
+}
+.btn-secondary:hover { background-color: var(--bg-surface); }
+
+/* Fluent Cards */
+.section-title {
+    font-size: 2.5rem;
+    letter-spacing: -1px;
+    margin-bottom: 4rem;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.fluent-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.fluent-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-fluent);
+}
+.fluent-card h3 { margin-bottom: 1rem; font-weight: 600; }
+.fluent-card p { color: var(--text-muted); }
