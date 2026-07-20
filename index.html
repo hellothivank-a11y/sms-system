@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudySphere | Smart Student Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Vue.js CDN (Ready for the community forum) -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <!-- Microsoft Fluent inspired Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="#" class="brand">StudySphere.</a>
+            <nav class="nav-links">
+                <a href="#" class="active">Home</a>
+                <a href="#">Planner</a>
+                <a href="#">Community</a>
+                <a href="#">Support</a>
+            </nav>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="icon-btn" aria-label="Toggle Dark Mode">
+                    🌙
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section with Negative Space -->
+    <main>
+        <section class="hero section-container">
+            <div class="hero-content">
+                <span class="badge">Academic Year 2025/2026</span>
+                <h1 class="hero-title">Master your campus life with elegant simplicity.</h1>
+                <p class="hero-subtitle">A central hub designed to organize your studies, manage tasks, and connect with the student community—all in one seamless, distraction-free environment.</p>
+                <div class="hero-actions">
+                    <a href="#" class="btn btn-primary">Open Planner</a>
+                    <a href="#features" class="btn btn-secondary">Explore Features</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Overview -->
+        <section id="features" class="features section-container">
+            <h2 class="section-title">Designed for focus.</h2>
+            <div class="feature-grid">
+                <div class="fluent-card">
+                    <h3>Smart Study Planner</h3>
+                    <p>Organize daily tasks and assignments with our built-in JavaScript productivity timer.</p>
+                </div>
+                <div class="fluent-card">
+                    <h3>Vue.js Community Forum</h3>
+                    <p>Engage with peers through dynamic discussions, instant polls, and seamless Q&A threads.</p>
+                </div>
+                <div class="fluent-card">
+                    <h3>Wellness & Productivity</h3>
+                    <p>Balance your academic life with tools designed to reduce stress and improve time management.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>
