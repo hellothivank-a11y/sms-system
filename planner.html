@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Planner | StudySphere</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Microsoft Fluent Acrylic Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">StudySphere.</a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="planner.html" class="active">Planner</a>
+                <a href="#">Community</a>
+                <a href="#">Support</a>
+            </nav>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="icon-btn" aria-label="Toggle Dark Mode">
+                    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="section-container">
+        <!-- Minimal Dashboard Header -->
+        <header class="planner-header">
+            <span class="badge">Smart Tool Interface</span>
+            <h1 class="hero-title">Focus & Progress.</h1>
+            <p class="hero-subtitle">Track your daily academic tasks and maintain high cognitive focus with the integrated Pomodoro system.</p>
+        </header>
+
+        <!-- Two Column Layout for Smart Tools -->
+        <div class="planner-grid">
+            
+            <!-- Tool 1: Pomodoro Timer -->
+            <section class="fluent-card timer-section">
+                <h2 class="card-title">Productivity Timer</h2>
+                <p class="card-desc">Set your mind to focus for 25 minutes straight.</p>
+                
+                <div class="timer-display">
+                    <span id="minutes">25</span>:<span id="seconds">00</span>
+                </div>
+                
+                <div class="timer-controls">
+                    <button id="timer-start" class="btn btn-primary">Start</button>
+                    <button id="timer-reset" class="btn btn-secondary">Reset</button>
+                </div>
+            </section>
+
+            <!-- Tool 2: Task Planner / Tracker -->
+            <section class="fluent-card tracker-section">
+                <h2 class="card-title">Daily Task Tracker</h2>
+                <p class="card-desc">Organize your assignments and topics to cover.</p>
+                
+                <form id="task-form" class="task-input-group">
+                    <input type="text" id="task-input" placeholder="Type a new student task..." required autocomplete="off">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </form>
+
+                <ul id="task-list" class="minimal-list">
+                    <!-- Tasks will be injected here via JavaScript -->
+                </ul>
+            </section>
+
+        </div>
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>
