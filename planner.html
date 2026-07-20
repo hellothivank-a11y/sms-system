@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Microsoft Fluent Acrylic Navbar -->
     <header class="navbar">
         <div class="nav-container">
             <a href="index.html" class="brand">StudySphere.</a>
@@ -27,14 +26,68 @@
     </header>
 
     <main class="section-container">
-        <!-- Minimal Dashboard Header -->
         <header class="planner-header">
             <span class="badge">Smart Tool Interface</span>
             <h1 class="hero-title">Focus & Progress.</h1>
-            <p class="hero-subtitle">Track your daily academic tasks and maintain high cognitive focus with the integrated Pomodoro system.</p>
         </header>
 
-        <!-- Two Column Layout for Smart Tools -->
+        <div class="planner-grid">
+            <!-- Timer Section -->
+            <section class="fluent-card timer-section">
+                <h2 class="card-title">Productivity Timer</h2>
+                <div class="timer-display">
+                    <span id="minutes">25</span>:<span id="seconds">00</span>
+                </div>
+                <div class="timer-controls">
+                    <button id="timer-start" class="btn btn-primary">Start</button>
+                    <button id="timer-reset" class="btn btn-secondary">Reset</button>
+                </div>
+            </section>
+
+            <!-- Advanced Task Tracker Section -->
+            <section class="fluent-card tracker-section" style="grid-column: 1 / -1;">
+                <h2 class="card-title">Advanced Task Manager</h2>
+                <p class="card-desc">Schedule your academic tasks with precision.</p>
+                
+                <form id="task-form" class="advanced-task-form">
+                    <div class="form-grid">
+                        <input type="text" id="task-name" placeholder="Task Name (e.g. Do Math Assignment)" required autocomplete="off">
+                        <input type="date" id="task-date" required>
+                        <input type="time" id="task-time" required>
+                        <select id="task-priority">
+                            <option value="High">High</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                        <input type="text" id="task-desc" placeholder="Brief Description..." autocomplete="off">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Add Schedule</button>
+                </form>
+
+                <div class="table-responsive">
+                    <table class="minimal-table">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Task Name</th>
+                                <th>Date & Time</th>
+                                <th>Priority</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="task-list-body">
+                            <!-- JS will inject table rows here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>        <!-- Two Column Layout for Smart Tools -->
         <div class="planner-grid">
             
             <!-- Tool 1: Pomodoro Timer -->
