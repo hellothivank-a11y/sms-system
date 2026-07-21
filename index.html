@@ -3,66 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudySphere | Smart Student Hub</title>
+    <title>StudySphere | Student Life Hub</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Vue.js CDN (Ready for the community forum) -->
+    <!-- Vue.js CDN for Community Integration -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
-    <!-- Microsoft Fluent inspired Navbar -->
-    <header class="navbar">
-        <div class="nav-container">
-            <a href="#" class="brand">StudySphere.</a>
-            <nav class="nav-links">
-                <!-- මේ විදිහට ලින්ක් ටික හදාගන්න -->
-            <nav class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="planner.html">Planner</a>
-                <a href="community.html">Community</a>
-                <a href="contact.html">Support</a>
+
+    <div class="app-container">
+        <!-- Apple-inspired Left Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <a href="index.html" class="sidebar-brand">StudySphere.</a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item active">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                    <span>Home</span>
+                </a>
+                <a href="planner.html" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+                    <span>Planner</span>
+                </a>
+                <a href="community.html" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    <span>Community</span>
+                </a>
+                <a href="wellness.html" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    <span>Wellness</span>
+                </a>
+                <a href="budget.html" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    <span>Budget</span>
+                </a>
             </nav>
-            <div class="nav-actions">
-                <button id="theme-toggle" class="icon-btn" aria-label="Toggle Dark Mode">
-                    🌙
+
+            <div class="sidebar-footer">
+                <a href="contact.html" class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    <span>Support</span>
+                </a>
+                
+                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <span class="theme-label">Appearance</span>
                 </button>
             </div>
-        </div>
-    </header>
+        </aside>
 
-    <!-- Hero Section with Negative Space -->
-    <main>
-        <section class="hero section-container">
-            <div class="hero-content">
-                <span class="badge">Academic Year 2025/2026</span>
-                <h1 class="hero-title">Master your campus life with elegant simplicity.</h1>
-                <p class="hero-subtitle">A central hub designed to organize your studies, manage tasks, and connect with the student community—all in one seamless, distraction-free environment.</p>
-                <div class="hero-actions">
-                    <a href="#" class="btn btn-primary">Open Planner</a>
-                    <a href="#features" class="btn btn-secondary">Explore Features</a>
+        <!-- Main Workspace Zone -->
+        <main class="main-content">
+            <!-- Header Banner -->
+            <header class="dashboard-header">
+                <div>
+                    <span class="status-badge">Academic Year 2025/2026</span>
+                    <h1 class="welcome-title">Good Day, Student.</h1>
+                    <p class="welcome-subtitle" id="live-date">Loading date...</p>
                 </div>
-            </div>
-        </section>
+                <div class="header-actions">
+                    <a href="planner.html" class="btn btn-primary">+ New Task</a>
+                </div>
+            </header>
 
-        <!-- Features Overview -->
-        <section id="features" class="features section-container">
-            <h2 class="section-title">Designed for focus.</h2>
-            <div class="feature-grid">
-                <div class="fluent-card">
-                    <h3>Smart Study Planner</h3>
-                    <p>Organize daily tasks and assignments with our built-in JavaScript productivity timer.</p>
+            <!-- Main Dashboard Widgets Grid -->
+            <section class="dashboard-grid">
+                
+                <!-- Widget 1: Academic Progress Summary -->
+                <div class="dash-card">
+                    <div class="card-header">
+                        <h3>Academic Progress</h3>
+                        <a href="planner.html" class="card-link">View Planner &rarr;</a>
+                    </div>
+                    <div class="progress-summary-content">
+                        <div class="circle-chart-preview">
+                            <div class="circle-inner">
+                                <span class="chart-percent" id="completion-rate">0%</span>
+                                <span class="chart-sub">Completed</span>
+                            </div>
+                        </div>
+                        <div class="stats-list">
+                            <div class="stat-item"><span class="dot dot-todo"></span> To Do: <strong id="todo-count">0</strong></div>
+                            <div class="stat-item"><span class="dot dot-progress"></span> In Progress: <strong id="progress-count">0</strong></div>
+                            <div class="stat-item"><span class="dot dot-done"></span> Completed: <strong id="done-count">0</strong></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="fluent-card">
-                    <h3>Vue.js Community Forum</h3>
-                    <p>Engage with peers through dynamic discussions, instant polls, and seamless Q&A threads.</p>
+
+                <!-- Widget 2: Financial Overview Split Bar -->
+                <div class="dash-card">
+                    <div class="card-header">
+                        <h3>Financial Status</h3>
+                        <a href="budget.html" class="card-link">View Budget &rarr;</a>
+                    </div>
+                    <div class="financial-summary-content">
+                        <div class="balance-display">
+                            <span class="balance-label">Net Remaining Balance</span>
+                            <h2 class="balance-amount" id="home-net-balance">LKR 0.00</h2>
+                        </div>
+                        <!-- Split Bar Visual -->
+                        <div class="tug-bar-container">
+                            <div class="tug-bar-income" id="bar-income" style="width: 50%;"></div>
+                            <div class="tug-bar-expense" id="bar-expense" style="width: 50%;"></div>
+                        </div>
+                        <div class="bar-legend">
+                            <span class="legend-income">Income: <strong id="home-income-val">LKR 0</strong></span>
+                            <span class="legend-expense">Expenses: <strong id="home-expense-val">LKR 0</strong></span>
+                        </div>
+                    </div>
                 </div>
-                <div class="fluent-card">
-                    <h3>Wellness & Productivity</h3>
-                    <p>Balance your academic life with tools designed to reduce stress and improve time management.</p>
+
+                <!-- Widget 3: Pomodoro Quick Focus -->
+                <div class="dash-card">
+                    <div class="card-header">
+                        <h3>Focus Session</h3>
+                        <span class="badge-sm">Pomodoro</span>
+                    </div>
+                    <div class="quick-focus-content">
+                        <div class="mini-timer-display">25:00</div>
+                        <p class="card-desc">Boost cognitive retention with interval study sessions.</p>
+                        <a href="planner.html" class="btn btn-secondary full-width">Start Focus Timer</a>
+                    </div>
                 </div>
-            </div>
-        </section>
-    </main>
+
+                <!-- Widget 4: Community Feed Snippet -->
+                <div class="dash-card">
+                    <div class="card-header">
+                        <h3>Community Pulse</h3>
+                        <a href="community.html" class="card-link">Join Forum &rarr;</a>
+                    </div>
+                    <div class="community-preview-content">
+                        <div class="forum-preview-item">
+                            <span class="forum-tag">Discussion</span>
+                            <p class="forum-title">Best study routines for EEI3346 Web App development?</p>
+                            <span class="forum-meta">3 replies &bull; 10m ago</span>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
 
     <script src="main.js"></script>
 </body>
 </html>
+
+
