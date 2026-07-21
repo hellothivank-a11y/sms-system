@@ -1,4 +1,3 @@
-// System Logic Controller
 document.addEventListener('DOMContentLoaded', () => {
 
     // 1. Theme Management
@@ -20,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         liveDateEl.textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     }
 
-    // 3. Animated Pomodoro Timer with Custom Input Fix
+    // 3. Big Pomodoro Timer Logic
     const minsDisplay = document.getElementById('minutes');
     const secsDisplay = document.getElementById('seconds');
     const startBtn = document.getElementById('timer-start');
@@ -33,7 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let totalTime = (timeInput && timeInput.value ? parseInt(timeInput.value) : 25) * 60; 
         let timeRemaining = totalTime; 
         let isRunning = false;
-        const circleCircumference = 440; 
+        
+        // For SVG with r=90, Circumference is approx 565.5
+        const circleCircumference = 565.5; 
 
         function updateTimerUI() {
             let m = Math.floor(timeRemaining / 60);
@@ -41,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
             minsDisplay.textContent = m.toString().padStart(2, '0');
             secsDisplay.textContent = s.toString().padStart(2, '0');
             
-            // Sync SVG Ring
             if (progressRing) {
                 let progressPercent = totalTime > 0 ? (timeRemaining / totalTime) : 0;
                 let dashOffset = circleCircumference - (progressPercent * circleCircumference);
@@ -49,12 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Fix: Use 'input' event for real-time update when typing
+        // Real-time update when typing
         if (timeInput) {
             timeInput.addEventListener('input', () => {
                 if(!isRunning) {
                     let val = parseInt(timeInput.value);
-                    if(isNaN(val) || val < 1) return; // Prevent errors if field is empty or negative
+                    if(isNaN(val) || val < 1) return; 
                     totalTime = val * 60;
                     timeRemaining = totalTime;
                     updateTimerUI();
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         startBtn.addEventListener('click', () => {
             if (!isRunning) {
                 isRunning = true;
-                startBtn.textContent = 'Pause';
+                startBtn.textContent = 'Pause Focus';
                 startBtn.style.backgroundColor = '#5F6368';
                 if(timeInput) timeInput.disabled = true;
                 
@@ -75,14 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         updateTimerUI();
                     } else {
                         clearInterval(timerInterval);
-                        alert('Focus session complete! Time for a break.');
+                        alert('Focus session complete! Take a break.');
                         resetTimer();
                     }
                 }, 1000);
             } else {
                 clearInterval(timerInterval);
                 isRunning = false;
-                startBtn.textContent = 'Resume';
+                startBtn.textContent = 'Resume Focus';
                 startBtn.style.backgroundColor = 'var(--color-primary)';
             }
         });
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateTimerUI(); 
     }
 
-    // 4. Advanced Task Manager (Animations & Charts)
+    // 4. Advanced Task Manager
     const toggleFormBtn = document.getElementById('toggle-task-form-btn');
     const taskForm = document.getElementById('task-form');
     const tableBody = document.getElementById('task-list-body');
@@ -129,14 +129,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Render Table logic
         function renderPlannerTable(isInitial = false) {
             tableBody.innerHTML = '';
             tasks.forEach((task, index) => {
                 const tr = document.createElement('tr');
                 tr.className = 'row-transition';
                 
-                // Add pop-up fade in animation for re-renders
                 if (!isInitial) tr.classList.add('row-fading-in'); 
                 
                 const isDone = task.status === 'Completed';
@@ -158,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </td>
                     <td style="color: var(--text-muted);">${task.desc || '-'}</td>
                     <td style="text-align: right;">
-                        <button class="delete-btn-with-icon" onclick="confirmDelete(${index})">
+                        <button class="delete-btn-with-icon" onclick="instantDelete(${index})">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                             Delete
                         </button>
@@ -207,14 +205,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Animation Wrapper
         window.animateRowChange = function(index, type) {
             let row = tableBody.children[index];
-            
-            // 1. Add class to start fade out (fades up slightly)
             row.classList.add('row-fading-out'); 
             
-            // 2. Wait for CSS transition (400ms) to complete before re-ordering
             setTimeout(() => {
                 if (type === 'checkbox') {
                     tasks[index].status = tasks[index].status === 'Completed' ? 'To Do' : 'Completed';
@@ -224,28 +218,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 sortTasks();
                 localStorage.setItem('advanced-tasks', JSON.stringify(tasks));
-                
-                // 3. Render table. (isInitial = false adds the pop-up fade in animation)
                 renderPlannerTable(false); 
                 updateCharts();
-            }, 400); 
+            }, 300); 
         }
 
-        window.confirmDelete = function(index) {
+        // Instant Delete with simple fade out
+        window.instantDelete = function(index) {
             let row = tableBody.children[index];
-            row.classList.add('row-fading-out'); // Animate out before delete
+            row.classList.add('row-fading-out'); 
             
             setTimeout(() => {
-                if(confirm("Are you sure you want to delete this task?")) {
-                    tasks.splice(index, 1);
-                    sortTasks();
-                    localStorage.setItem('advanced-tasks', JSON.stringify(tasks));
-                    renderPlannerTable(false);
-                    updateCharts();
-                } else {
-                    renderPlannerTable(false); // Restore if cancelled
-                }
-            }, 400);
+                tasks.splice(index, 1);
+                sortTasks();
+                localStorage.setItem('advanced-tasks', JSON.stringify(tasks));
+                renderPlannerTable(false);
+                updateCharts();
+            }, 300);
         }
 
         if(taskForm) {
@@ -263,13 +252,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('advanced-tasks', JSON.stringify(tasks));
                 taskForm.reset();
                 taskForm.classList.remove('active');
-                renderPlannerTable(false); // Animate new entry
+                renderPlannerTable(false); 
                 updateCharts();
             });
         }
 
         sortTasks();
-        renderPlannerTable(true); // isInitial = true (no pop-up animation on first load)
+        renderPlannerTable(true);
         updateCharts();
     }
 });
