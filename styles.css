@@ -335,3 +335,173 @@ body {
     color: var(--text-muted);
     line-height: 1.4;
 }
+
+
+/* --- COMMUNITY & VUE FORUM STYLES --- */
+.forum-create-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.forum-input, .forum-textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    background: var(--bg-app);
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.forum-input:focus, .forum-textarea:focus {
+    border-color: var(--color-primary);
+}
+
+.forum-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.forum-post-card {
+    padding: 1.2rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-app);
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+}
+
+.post-date {
+    color: var(--text-muted);
+}
+
+.post-content {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-like {
+    background: transparent;
+    border: 1px solid var(--border-subtle);
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    color: var(--text-main);
+    transition: all 0.2s;
+}
+
+.btn-like:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.btn-delete-sm {
+    background: transparent;
+    border: none;
+    color: var(--color-danger);
+    font-size: 0.8rem;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.btn-delete-sm:hover { opacity: 1; }
+
+.empty-feed {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 2rem 0;
+    font-size: 0.9rem;
+}
+
+/* Polls */
+.poll-options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.poll-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-app);
+    color: var(--text-main);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.poll-btn:hover {
+    border-color: var(--color-primary);
+}
+
+/* FAQ Accordion */
+.faq-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.faq-item {
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--bg-app);
+}
+
+.faq-question {
+    width: 100%;
+    text-align: left;
+    padding: 14px;
+    background: transparent;
+    border: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0 14px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.faq-item.active .faq-answer {
+    max-height: 100px;
+    padding: 0 14px 14px 14px;
+}
+
+.faq-item.active .faq-question span {
+    transform: rotate(45deg);
+}
