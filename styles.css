@@ -128,19 +128,21 @@ body {
 .timer-progress { fill: none; stroke: var(--color-primary); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 565.5; stroke-dashoffset: 0; transition: stroke-dashoffset 1s linear; }
 .timer-wrapper.large-timer .timer-display-box { font-size: 3.5rem; font-weight: 300; letter-spacing: -1.5px; z-index: 2; }
 
-/* Inline Forms & Right Aligned Buttons */
+/* Inline Forms Layout */
 .inline-task-form { display: none; background-color: var(--bg-app); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); margin-bottom: 2rem; }
 .inline-task-form.active { display: block; }
 .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 1.2rem; }
 .form-grid input, .form-grid select { padding: 10px 14px; border: 1px solid var(--border-subtle); border-radius: 8px; background-color: var(--bg-surface); color: var(--text-main); font-size: 0.9rem; outline: none; }
 .form-grid input:focus, .form-grid select:focus { border-color: var(--color-primary); }
 
-/* Enforcement for Form Buttons on Right */
-.form-actions, .right-align-actions {
-    display: flex !important;
-    justify-content: flex-end !important;
-    gap: 0.8rem !important;
-    width: 100% !important;
+/* --- BUTTON ALIGNMENT FIX --- */
+.form-actions-row {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.8rem;
+    width: 100%;
+    margin-top: 0.5rem;
 }
 
 /* Table Styles */
