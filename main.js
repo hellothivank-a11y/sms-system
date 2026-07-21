@@ -462,4 +462,3 @@ document.addEventListener('DOMContentLoaded', () => {
     updateBudgetCharts();
 });
 
-
