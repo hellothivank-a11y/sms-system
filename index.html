@@ -9,14 +9,12 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
-
     <div class="app-container">
-        <!-- Apple-inspired Left Sidebar -->
+        <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="sidebar-top">
                 <a href="index.html" class="sidebar-brand">StudySphere.</a>
             </div>
-
             <nav class="sidebar-nav">
                 <a href="index.html" class="nav-item active">
                     <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
@@ -39,13 +37,11 @@
                     <span>Budget</span>
                 </a>
             </nav>
-
             <div class="sidebar-footer">
                 <a href="contact.html" class="nav-item">
                     <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                     <span>Support</span>
                 </a>
-                
                 <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
                     <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                     <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
@@ -54,9 +50,8 @@
             </div>
         </aside>
 
-        <!-- Main Workspace Zone -->
+        <!-- Main Workspace -->
         <main class="main-content">
-            <!-- Header Banner -->
             <header class="dashboard-header">
                 <div>
                     <span class="status-badge">Academic Year 2025/2026</span>
@@ -68,31 +63,31 @@
                 </div>
             </header>
 
-            <!-- Main Dashboard Widgets Grid -->
-            <section class="dashboard-grid">
+            <!-- Fixed 2-Column Grid for Home Dashboard -->
+            <section class="dashboard-grid home-grid">
                 
-                <!-- Widget 1: Academic Progress Summary -->
+                <!-- Widget 1: Progress -->
                 <div class="dash-card">
                     <div class="card-header">
                         <h3>Academic Progress</h3>
                         <a href="planner.html" class="card-link">View Planner &rarr;</a>
                     </div>
                     <div class="progress-summary-content">
-                        <div class="circle-chart-preview">
+                        <div class="circle-chart-preview" id="home-chart-bg">
                             <div class="circle-inner">
                                 <span class="chart-percent" id="completion-rate">0%</span>
-                                <span class="chart-sub">Completed</span>
+                                <span class="chart-sub">Done</span>
                             </div>
                         </div>
                         <div class="stats-list">
                             <div class="stat-item"><span class="dot dot-todo"></span> To Do: <strong id="todo-count">0</strong></div>
-                            <div class="stat-item"><span class="dot dot-progress"></span> In Progress: <strong id="progress-count">0</strong></div>
+                            <div class="stat-item"><span class="dot dot-progress"></span> Working: <strong id="progress-count">0</strong></div>
                             <div class="stat-item"><span class="dot dot-done"></span> Completed: <strong id="done-count">0</strong></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Widget 2: Financial Overview Split Bar -->
+                <!-- Widget 2: Financial -->
                 <div class="dash-card">
                     <div class="card-header">
                         <h3>Financial Status</h3>
@@ -103,7 +98,6 @@
                             <span class="balance-label">Net Remaining Balance</span>
                             <h2 class="balance-amount" id="home-net-balance">LKR 0.00</h2>
                         </div>
-                        <!-- Split Bar Visual -->
                         <div class="tug-bar-container">
                             <div class="tug-bar-income" id="bar-income" style="width: 50%;"></div>
                             <div class="tug-bar-expense" id="bar-expense" style="width: 50%;"></div>
@@ -115,7 +109,7 @@
                     </div>
                 </div>
 
-                <!-- Widget 3: Pomodoro Quick Focus -->
+                <!-- Widget 3: Pomodoro -->
                 <div class="dash-card">
                     <div class="card-header">
                         <h3>Focus Session</h3>
@@ -123,12 +117,12 @@
                     </div>
                     <div class="quick-focus-content">
                         <div class="mini-timer-display">25:00</div>
-                        <p class="card-desc">Boost cognitive retention with interval study sessions.</p>
+                        <p class="card-desc" style="text-align: center;">Boost cognitive retention with interval study sessions.</p>
                         <a href="planner.html" class="btn btn-secondary full-width">Start Focus Timer</a>
                     </div>
                 </div>
 
-                <!-- Widget 4: Community Feed Snippet -->
+                <!-- Widget 4: Community -->
                 <div class="dash-card">
                     <div class="card-header">
                         <h3>Community Pulse</h3>
@@ -142,13 +136,10 @@
                         </div>
                     </div>
                 </div>
-
             </section>
         </main>
     </div>
-
     <script src="main.js"></script>
 </body>
 </html>
-
 
