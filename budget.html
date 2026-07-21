@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Planner | StudySphere</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-top"><a href="index.html" class="sidebar-brand">StudySphere.</a></div>
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg><span>Home</span></a>
+                <a href="planner.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg><span>Planner</span></a>
+                <a href="community.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span>Community</span></a>
+                <a href="wellness.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg><span>Wellness</span></a>
+                <a href="budget.html" class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg><span>Budget</span></a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="contact.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><span>Support</span></a>
+                <button id="theme-toggle" class="theme-toggle-btn">
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line></svg>
+                    <span class="theme-label">Appearance</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div>
+                    <span class="status-badge">Financial Engine</span>
+                    <h1 class="welcome-title">Budget & Expenses</h1>
+                </div>
+                <div class="header-actions" style="display: flex; gap: 1rem; align-items: center;">
+                    <!-- Notification Bell for Scheduled Tasks -->
+                    <div class="bell-icon-container">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                        <span class="bell-badge" id="notification-badge">0</span>
+                    </div>
+                </div>
+            </header>
+
+            <section class="dashboard-grid planner-top-grid">
+                <!-- Left: Tug-of-war Bar & Net Balance -->
+                <div class="dash-card">
+                    <div class="card-header">
+                        <h3>Financial Balance</h3>
+                    </div>
+                    <div class="financial-summary-content">
+                        <div class="balance-display" style="text-align: center;">
+                            <span class="balance-label">Net Remaining Balance</span>
+                            <h2 class="balance-amount" id="net-balance-display">LKR 0.00</h2>
+                        </div>
+                        
+                        <!-- Dynamic Split Bar -->
+                        <div class="tug-bar-container large-tug-bar">
+                            <div class="tug-bar-income" id="budget-bar-income" style="width: 50%;"></div>
+                            <div class="tug-bar-expense" id="budget-bar-expense" style="width: 50%;"></div>
+                        </div>
+                        
+                        <div class="bar-legend">
+                            <span class="legend-income">Total Income<br><strong id="income-display">LKR 0</strong></span>
+                            <span class="legend-expense" style="text-align: right;">Total Expenses<br><strong id="expense-display">LKR 0</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Category Donut Chart -->
+                <div class="dash-card">
+                    <div class="card-header">
+                        <h3>Expense Breakdown</h3>
+                        <span class="badge-sm">Categories</span>
+                    </div>
+                    <div class="progress-summary-content">
+                        <!-- Donut Chart -->
+                        <div class="donut-chart-preview" id="donut-chart-bg">
+                            <div class="circle-inner">
+                                <span class="chart-percent" style="font-size: 0.9rem;">Total</span>
+                                <span class="chart-sub" id="donut-total">0</span>
+                            </div>
+                        </div>
+                        <!-- Categories List -->
+                        <div class="stats-list category-list" id="category-list">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bottom: Transaction Ledger -->
+            <section class="dash-card task-manager-card">
+                <div class="card-header">
+                    <div>
+                        <h3>Transaction Ledger</h3>
+                        <p class="card-desc" style="margin-bottom:0;">Manage current and scheduled upcoming payments.</p>
+                    </div>
+                    <button id="toggle-budget-form-btn" class="btn btn-primary">+ Add Transaction</button>
+                </div>
+
+                <!-- Expanding Budget Form -->
+                <form id="budget-form" class="inline-task-form">
+                    <div class="form-grid">
+                        <select id="trans-type" required>
+                            <option value="Expense" selected>Expense</option>
+                            <option value="Income">Income</option>
+                        </select>
+                        <select id="trans-category" required>
+                            <option value="Food">Food & Dining</option>
+                            <option value="Travel">Transport & Travel</option>
+                            <option value="Education">Education</option>
+                            <option value="Accommodation">Accommodation</option>
+                            <option value="Other">Other / Income</option>
+                        </select>
+                        <input type="text" id="trans-title" placeholder="Title (e.g. Bus ticket)" required autocomplete="off">
+                        <input type="number" id="trans-amount" placeholder="Amount (LKR)" required min="0">
+                        <input type="date" id="trans-date" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Save Transaction</button>
+                        <button type="button" id="cancel-budget-form-btn" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
+
+                <div class="table-responsive">
+                    <table class="minimal-table">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                                <th style="text-align: right;">Amount (LKR)</th>
+                                <th style="text-align: right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="budget-list-body">
+                            <!-- Transactions Injected Here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
