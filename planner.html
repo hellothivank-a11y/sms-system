@@ -8,6 +8,7 @@
 </head>
 <body>
     <div class="app-container">
+        <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-top"><a href="index.html" class="sidebar-brand">StudySphere.</a></div>
             <nav class="sidebar-nav">
@@ -56,31 +57,30 @@
                     </div>
                 </div>
 
-                <!-- Animated Pomodoro Timer -->
+                <!-- Big Pomodoro Timer -->
                 <div class="dash-card timer-card">
                     <div class="card-header">
                         <h3>Pomodoro Timer</h3>
-                        <!-- Custom Time Input -->
                         <div class="timer-settings">
                             <input type="number" id="custom-time-input" value="25" min="1" max="120" title="Set Minutes">
                             <span class="badge-sm">Min</span>
                         </div>
                     </div>
                     
-                    <div class="timer-wrapper">
-                        <!-- SVG Ring Animation -->
-                        <svg class="timer-svg" viewBox="0 0 160 160">
-                            <circle class="timer-bg" cx="80" cy="80" r="70"></circle>
-                            <circle class="timer-progress" id="timer-progress-ring" cx="80" cy="80" r="70"></circle>
-                        </svg>
-                        <div class="timer-display-box">
-                            <span id="minutes">25</span>:<span id="seconds">00</span>
+                    <div class="timer-layout-row">
+                        <div class="timer-wrapper large-timer">
+                            <svg class="timer-svg" viewBox="0 0 200 200">
+                                <circle class="timer-bg" cx="100" cy="100" r="90"></circle>
+                                <circle class="timer-progress" id="timer-progress-ring" cx="100" cy="100" r="90"></circle>
+                            </svg>
+                            <div class="timer-display-box">
+                                <span id="minutes">25</span>:<span id="seconds">00</span>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="timer-controls">
-                        <button id="timer-start" class="btn btn-primary">Start Focus</button>
-                        <button id="timer-reset" class="btn btn-secondary">Reset</button>
+                        <div class="timer-controls-vertical">
+                            <button id="timer-start" class="btn btn-primary">Start Focus</button>
+                            <button id="timer-reset" class="btn btn-secondary">Reset Timer</button>
+                        </div>
                     </div>
                 </div>
             </section>
