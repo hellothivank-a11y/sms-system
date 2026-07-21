@@ -1,154 +1,112 @@
+// StudySphere - Main Controller Architecture
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // ==========================================
-    // 1. THEME MANAGEMENT (Dark / Light)
-    // ==========================================
-    const themeToggle = document.getElementById('theme-toggle');
-    const currentTheme = localStorage.getItem('theme') || 'light';
 
-    document.documentElement.setAttribute('data-theme', currentTheme);
+    // ==========================================
+    // 1. SYSTEM THEME MANAGEMENT
+    // ==========================================
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('studysphere-theme') || 'light';
 
-    if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            let theme = document.documentElement.getAttribute('data-theme');
-            let newTheme = theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
             document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+            localStorage.setItem('studysphere-theme', newTheme);
         });
     }
 
     // ==========================================
-    // 2. PRODUCTIVITY TIMER (Pomodoro)
+    // 2. LIVE DATE & GREETING (HOME DASHBOARD)
     // ==========================================
-    const minsDisplay = document.getElementById('minutes');
-    const secsDisplay = document.getElementById('seconds');
-    const startBtn = document.getElementById('timer-start');
-    const resetBtn = document.getElementById('timer-reset');
+    const liveDateEl = document.getElementById('live-date');
+    if (liveDateEl) {
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        liveDateEl.textContent = now.toLocaleDateString('en-US', options);
+    }
 
-    if (minsDisplay && secsDisplay && startBtn && resetBtn) {
-        let timerInterval;
-        let timeRemaining = 25 * 60; 
-        let isRunning = false;
+    // ==========================================
+    // 3. DASHBOARD WIDGETS DATA SYNCHRONIZATION
+    // ==========================================
+    
+    // Synchronize Task Progress Widget
+    function syncTaskWidget() {
+        const tasks = JSON.parse(localStorage.getItem('advanced-tasks')) || [];
+        
+        let todo = 0;
+        let inProgress = 0;
+        let completed = 0;
 
-        function updateTimerUI() {
-            let minutes = Math.floor(timeRemaining / 60);
-            let seconds = timeRemaining % 60;
-            minsDisplay.textContent = minutes.toString().padStart(2, '0');
-            secsDisplay.textContent = seconds.toString().padStart(2, '0');
-        }
-
-        startBtn.addEventListener('click', () => {
-            if (!isRunning) {
-                isRunning = true;
-                startBtn.textContent = 'Pause';
-                startBtn.style.backgroundColor = '#5F6368'; 
-                
-                timerInterval = setInterval(() => {
-                    if (timeRemaining > 0) {
-                        timeRemaining--;
-                        updateTimerUI();
-                    } else {
-                        clearInterval(timerInterval);
-                        alert('Focus session complete! Take a break.');
-                        resetTimer();
-                    }
-                }, 1000);
+        tasks.forEach(task => {
+            if (task.completed) {
+                completed++;
+            } else if (task.status === 'In Progress') {
+                inProgress++;
             } else {
-                clearInterval(timerInterval);
-                isRunning = false;
-                startBtn.textContent = 'Start';
-                startBtn.style.backgroundColor = 'var(--color-primary)';
+                todo++;
             }
         });
 
-        function resetTimer() {
-            clearInterval(timerInterval);
-            isRunning = false;
-            timeRemaining = 25 * 60;
-            updateTimerUI();
-            startBtn.textContent = 'Start';
-            startBtn.style.backgroundColor = 'var(--color-primary)';
-        }
+        const total = tasks.length;
+        const rate = total > 0 ? Math.round((completed / total) * 100) : 0;
 
-        resetBtn.addEventListener('click', resetTimer);
+        const rateEl = document.getElementById('completion-rate');
+        const todoEl = document.getElementById('todo-count');
+        const progressEl = document.getElementById('progress-count');
+        const doneEl = document.getElementById('done-count');
+
+        if (rateEl) rateEl.textContent = `${rate}%`;
+        if (todoEl) todoEl.textContent = todo;
+        if (progressEl) progressEl.textContent = inProgress;
+        if (doneEl) doneEl.textContent = completed;
     }
 
+    // Synchronize Financial Budget Widget
+    function syncBudgetWidget() {
+        const transactions = JSON.parse(localStorage.getItem('budget-transactions')) || [];
+        
+        let totalIncome = 0;
+        let totalExpense = 0;
 
-    // ==========================================
-    // 3. ADVANCED TASK TRACKER (With Table & Sort)
-    // ==========================================
-    const taskForm = document.getElementById('task-form');
-    const tableBody = document.getElementById('task-list-body');
-    
-    if (taskForm && tableBody) {
-        let tasks = JSON.parse(localStorage.getItem('advanced-tasks')) || [];
-
-        function saveAndRenderTasks() {
-            // Sort tasks by Date and Time
-            tasks.sort((a, b) => {
-                let dateA = new Date(a.date + 'T' + a.time);
-                let dateB = new Date(b.date + 'T' + b.time);
-                return dateA - dateB;
-            });
-            
-            localStorage.setItem('advanced-tasks', JSON.stringify(tasks));
-            renderTable();
-        }
-
-        function renderTable() {
-            tableBody.innerHTML = '';
-            
-            tasks.forEach((task, index) => {
-                const tr = document.createElement('tr');
-                if (task.completed) tr.className = 'completed-row';
-                
-                // Format Date nicely
-                let formattedDate = new Date(task.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
-                
-                tr.innerHTML = `
-                    <td>
-                        <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTaskStatus(${index})" style="cursor:pointer; width: 18px; height: 18px;">
-                    </td>
-                    <td style="font-weight: 500;">${task.name}</td>
-                    <td>${formattedDate} <br> <small style="color: var(--text-muted);">${task.time}</small></td>
-                    <td><span class="priority-badge priority-${task.priority}">${task.priority}</span></td>
-                    <td style="color: var(--text-muted);">${task.desc || '-'}</td>
-                    <td>
-                        <button class="btn-secondary" onclick="deleteTaskRow(${index})" style="padding: 6px 12px; font-size: 0.8rem; border: none; color: #D93025; background: transparent; cursor: pointer;">Delete</button>
-                    </td>
-                `;
-                tableBody.appendChild(tr);
-            });
-        }
-
-        taskForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const newTask = {
-                name: document.getElementById('task-name').value,
-                date: document.getElementById('task-date').value,
-                time: document.getElementById('task-time').value,
-                priority: document.getElementById('task-priority').value,
-                desc: document.getElementById('task-desc').value,
-                completed: false
-            };
-            
-            tasks.push(newTask);
-            saveAndRenderTasks();
-            taskForm.reset(); // Clear the form
+        transactions.forEach(t => {
+            if (t.type === 'Income') totalIncome += parseFloat(t.amount);
+            if (t.type === 'Expense') totalExpense += parseFloat(t.amount);
         });
 
-        window.toggleTaskStatus = function(index) {
-            tasks[index].completed = !tasks[index].completed;
-            saveAndRenderTasks();
-        };
+        const netBalance = totalIncome - totalExpense;
 
-        window.deleteTaskRow = function(index) {
-            tasks.splice(index, 1);
-            saveAndRenderTasks();
-        };
+        const netEl = document.getElementById('home-net-balance');
+        const incEl = document.getElementById('home-income-val');
+        const expEl = document.getElementById('home-expense-val');
 
-        // Initial render
-        renderTable();
+        if (netEl) netEl.textContent = `LKR ${netBalance.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+        if (incEl) incEl.textContent = `LKR ${totalIncome.toLocaleString()}`;
+        if (expEl) expEl.textContent = `LKR ${totalExpense.toLocaleString()}`;
+
+        // Update Split Bar Visualization
+        const totalAmount = totalIncome + totalExpense;
+        const incomeBar = document.getElementById('bar-income');
+        const expenseBar = document.getElementById('bar-expense');
+
+        if (incomeBar && expenseBar) {
+            if (totalAmount > 0) {
+                const incPercent = (totalIncome / totalAmount) * 100;
+                const expPercent = (totalExpense / totalAmount) * 100;
+                incomeBar.style.width = `${incPercent}%`;
+                expenseBar.style.width = `${expPercent}%`;
+            } else {
+                incomeBar.style.width = '50%';
+                expenseBar.style.width = '50%';
+            }
+        }
     }
+
+    // Run Sync on Page Load
+    syncTaskWidget();
+    syncBudgetWidget();
 });
+
