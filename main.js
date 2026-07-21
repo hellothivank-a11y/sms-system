@@ -458,3 +458,89 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     updateBudgetCharts();
 });
+
+
+// ==========================================
+    // 7. WELLNESS PAGE LOGIC
+    // ==========================================
+    const moodBtns = document.querySelectorAll('.mood-btn');
+    const moodLabel = document.getElementById('today-mood-label');
+    
+    if (moodBtns.length > 0) {
+        let savedMood = localStorage.getItem('wellness-mood') || null;
+        if (savedMood) {
+            if (moodLabel) moodLabel.textContent = `Logged: ${savedMood}`;
+            moodBtns.forEach(btn => {
+                if (btn.dataset.mood === savedMood) btn.classList.add('selected');
+            });
+        }
+
+        moodBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                moodBtns.forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                let selectedMood = btn.dataset.mood;
+                localStorage.setItem('wellness-mood', selectedMood);
+                if (moodLabel) moodLabel.textContent = `Logged: ${selectedMood}`;
+            });
+        });
+    }
+
+    // Water Tracker
+    const waterCountText = document.getElementById('water-count-text');
+    const addWaterBtn = document.getElementById('add-water-btn');
+    const removeWaterBtn = document.getElementById('remove-water-btn');
+
+    if (waterCountText) {
+        let waterCount = parseInt(localStorage.getItem('wellness-water')) || 0;
+        const updateWaterUI = () => {
+            waterCountText.textContent = `${waterCount} / 8`;
+            localStorage.setItem('wellness-water', waterCount);
+        };
+
+        if (addWaterBtn) {
+            addWaterBtn.addEventListener('click', () => {
+                if (waterCount < 16) {
+                    waterCount++;
+                    updateWaterUI();
+                }
+            });
+        }
+
+        if (removeWaterBtn) {
+            removeWaterBtn.addEventListener('click', () => {
+                if (waterCount > 0) {
+                    waterCount--;
+                    updateWaterUI();
+                }
+            });
+        }
+        updateWaterUI();
+    }
+
+    // Wellness Habits Tracker
+    const habitCheckboxes = document.querySelectorAll('.wellness-habit-list input[type="checkbox"]');
+    const habitBadge = document.getElementById('habit-progress-badge');
+
+    if (habitCheckboxes.length > 0) {
+        let savedHabits = JSON.parse(localStorage.getItem('wellness-habits')) || [false, false, false, false];
+
+        const updateHabitUI = () => {
+            let doneCount = 0;
+            habitCheckboxes.forEach((cb, index) => {
+                cb.checked = savedHabits[index] || false;
+                if (cb.checked) doneCount++;
+            });
+            if (habitBadge) habitBadge.textContent = `${doneCount}/${habitCheckboxes.length} Done`;
+        };
+
+        habitCheckboxes.forEach((cb, index) => {
+            cb.addEventListener('change', () => {
+                savedHabits[index] = cb.checked;
+                localStorage.setItem('wellness-habits', JSON.stringify(savedHabits));
+                updateHabitUI();
+            });
+        });
+
+        updateHabitUI();
+    }
