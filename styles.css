@@ -1,3 +1,4 @@
+/* Google Fonts - Inter */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
 :root {
@@ -92,14 +93,14 @@ body {
 .welcome-title { font-size: 2.4rem; font-weight: 600; letter-spacing: -1px; }
 .welcome-subtitle { color: var(--text-muted); font-size: 1rem; margin-top: 0.2rem; }
 
-/* Grid Fixes (Home & Planner) */
+/* Grid Fixes */
 .dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Enforces exact 2 columns */
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     margin-bottom: 2.5rem;
 }
-@media (max-width: 900px) { .dashboard-grid { grid-template-columns: 1fr; } } /* 1 column on smaller screens */
+@media (max-width: 900px) { .dashboard-grid { grid-template-columns: 1fr; } }
 
 .dash-card {
     background-color: var(--bg-surface); border: 1px solid var(--border-subtle);
@@ -149,7 +150,7 @@ body {
 /* Animated Pomodoro Timer */
 .timer-card { text-align: center; }
 .timer-settings { display: flex; align-items: center; gap: 5px; }
-.timer-settings input { width: 50px; padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border-subtle); background: var(--bg-app); color: var(--text-main); font-family: inherit; font-size: 0.9rem; text-align: center; outline: none; }
+.timer-settings input { width: 60px; padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border-subtle); background: var(--bg-app); color: var(--text-main); font-family: inherit; font-size: 0.9rem; text-align: center; outline: none; }
 .timer-settings input:focus { border-color: var(--color-primary); }
 
 .timer-wrapper {
@@ -161,7 +162,6 @@ body {
 .timer-progress {
     fill: none; stroke: var(--color-primary); stroke-width: 6;
     stroke-linecap: round;
-    /* Circumference = 2 * pi * 70 approx 440 */
     stroke-dasharray: 440;
     stroke-dashoffset: 0;
     transition: stroke-dashoffset 1s linear;
@@ -177,19 +177,30 @@ body {
 .form-grid input:focus, .form-grid select:focus { border-color: var(--color-primary); }
 
 /* Table Styles & Animations */
-.table-responsive { overflow-x: auto; }
+.table-responsive { overflow-x: auto; overflow-y: visible; }
 .minimal-table { width: 100%; border-collapse: collapse; text-align: left; margin-top: 1rem; }
 .minimal-table th, .minimal-table td { padding: 1rem 0.8rem; border-bottom: 1px solid var(--border-subtle); font-size: 0.9rem; }
 .minimal-table th { font-weight: 600; color: var(--text-muted); }
 
-/* Smooth Row Animation Classes */
-.row-transition { transition: all 0.4s ease; opacity: 1; transform: translateY(0); }
-.row-fading-out { opacity: 0; transform: translateY(10px); }
-.row-fading-in { animation: fadeIn 0.4s ease forwards; }
+/* --- SMOOTH ROW ANIMATIONS --- */
+.row-transition { 
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out; 
+    opacity: 1; 
+    transform: translateY(0) scale(1);
+}
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+.row-fading-out { 
+    opacity: 0 !important; 
+    transform: translateY(-15px) scale(0.98) !important; /* Fades up slowly */
+}
+
+.row-fading-in { 
+    animation: popUpFadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; /* Pops up from bottom smoothly */
+}
+
+@keyframes popUpFadeIn {
+    0% { opacity: 0; transform: translateY(20px) scale(0.95); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .priority-badge { padding: 4px 10px; border-radius: 100px; font-size: 0.75rem; font-weight: 500; }
