@@ -28,7 +28,6 @@
             </div>
         </aside>
 
-        <!-- Main Workspace -->
         <main class="main-content">
             <header class="dashboard-header">
                 <div>
@@ -36,7 +35,6 @@
                     <h1 class="welcome-title">Budget & Expenses</h1>
                 </div>
                 <div class="header-actions" style="display: flex; gap: 1rem; align-items: center;">
-                    <!-- Notification Bell for Scheduled Tasks -->
                     <div class="bell-icon-container">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
                         <span class="bell-badge" id="notification-badge">0</span>
@@ -45,23 +43,17 @@
             </header>
 
             <section class="dashboard-grid planner-top-grid">
-                <!-- Left: Tug-of-war Bar & Net Balance -->
                 <div class="dash-card">
-                    <div class="card-header">
-                        <h3>Financial Balance</h3>
-                    </div>
+                    <div class="card-header"><h3>Financial Balance</h3></div>
                     <div class="financial-summary-content">
                         <div class="balance-display" style="text-align: center;">
                             <span class="balance-label">Net Remaining Balance</span>
                             <h2 class="balance-amount" id="net-balance-display">LKR 0.00</h2>
                         </div>
-                        
-                        <!-- Dynamic Split Bar -->
                         <div class="tug-bar-container large-tug-bar">
                             <div class="tug-bar-income" id="budget-bar-income" style="width: 50%;"></div>
                             <div class="tug-bar-expense" id="budget-bar-expense" style="width: 50%;"></div>
                         </div>
-                        
                         <div class="bar-legend">
                             <span class="legend-income">Total Income<br><strong id="income-display">LKR 0</strong></span>
                             <span class="legend-expense" style="text-align: right;">Total Expenses<br><strong id="expense-display">LKR 0</strong></span>
@@ -69,29 +61,25 @@
                     </div>
                 </div>
 
-                <!-- Right: Category Donut Chart -->
+                <!-- Donut Chart & Wider Categories Layout -->
                 <div class="dash-card">
                     <div class="card-header">
                         <h3>Expense Breakdown</h3>
                         <span class="badge-sm">Categories</span>
                     </div>
-                    <div class="progress-summary-content">
-                        <!-- Donut Chart -->
-                        <div class="donut-chart-preview" id="donut-chart-bg">
-                            <div class="circle-inner">
-                                <span class="chart-percent" style="font-size: 0.9rem;">Total</span>
-                                <span class="chart-sub" id="donut-total">0</span>
+                    <div class="progress-summary-content budget-breakdown-row">
+                        <div class="donut-chart-preview large-donut" id="donut-chart-bg">
+                            <div class="circle-inner large-donut-inner">
+                                <span class="chart-percent" style="font-size: 0.8rem;">Total</span>
+                                <span class="chart-sub" id="donut-total" style="font-size:0.75rem;">0</span>
                             </div>
                         </div>
-                        <!-- Categories List -->
-                        <div class="stats-list category-list" id="category-list">
-                            <!-- Populated by JS -->
-                        </div>
+                        <div class="stats-list category-list-wide" id="category-list"></div>
                     </div>
                 </div>
             </section>
 
-            <!-- Bottom: Transaction Ledger -->
+            <!-- Bottom Ledger -->
             <section class="dash-card task-manager-card">
                 <div class="card-header">
                     <div>
@@ -101,7 +89,7 @@
                     <button id="toggle-budget-form-btn" class="btn btn-primary">+ Add Transaction</button>
                 </div>
 
-                <!-- Expanding Budget Form -->
+                <!-- Expanding Budget Form with Right-aligned buttons -->
                 <form id="budget-form" class="inline-task-form">
                     <div class="form-grid">
                         <select id="trans-type" required>
@@ -119,9 +107,9 @@
                         <input type="number" id="trans-amount" placeholder="Amount (LKR)" required min="0">
                         <input type="date" id="trans-date" required>
                     </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Save Transaction</button>
+                    <div class="form-actions right-align-actions">
                         <button type="button" id="cancel-budget-form-btn" class="btn btn-secondary">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Transaction</button>
                     </div>
                 </form>
 
@@ -137,9 +125,7 @@
                                 <th style="text-align: right;">Action</th>
                             </tr>
                         </thead>
-                        <tbody id="budget-list-body">
-                            <!-- Transactions Injected Here -->
-                        </tbody>
+                        <tbody id="budget-list-body"></tbody>
                     </table>
                 </div>
             </section>
@@ -148,3 +134,4 @@
     <script src="main.js"></script>
 </body>
 </html>
+
