@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         liveDateEl.textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     }
 
-    // 3. POMODORO TIMER LOGIC (PLANNER)
+    // 3. POMODORO TIMER LOGIC
     const minsDisplay = document.getElementById('minutes');
     const startBtn = document.getElementById('timer-start');
     if (minsDisplay && startBtn) {
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderPlannerTable(true);
     }
 
-    // 5. GLOBAL DASHBOARD CHART UPDATERS (Home & Planner)
+    // 5. GLOBAL DASHBOARD CHART UPDATERS
     function updatePlannerCharts() {
         let tasks = JSON.parse(localStorage.getItem('advanced-tasks')) || [];
         let todo = 0, working = 0, done = 0;
@@ -239,9 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updatePlannerCharts();
 
 
-    // ==========================================
-    // 6. BUDGET & EXPENSE PLANNER LOGIC (Fixed Sorting: Nearest First)
-    // ==========================================
+    // 6. BUDGET & EXPENSE PLANNER LOGIC
     const budgetListBody = document.getElementById('budget-list-body');
     const toggleBudgetBtn = document.getElementById('toggle-budget-form-btn');
     const budgetForm = document.getElementById('budget-form');
@@ -260,7 +258,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function sortTransactions() {
-            // FIXED: Nearest/Earliest Date First (Ascending order: e.g. 19 before 20)
             transactions.sort((a, b) => new Date(a.date) - new Date(b.date));
         }
 
@@ -442,13 +439,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         gradientStops.push(`${colors[cat]} ${currentPct}% ${currentPct + pct}%`);
                         currentPct += pct;
 
-                        // Wider layout row for categories
+                        // Structured Row Fix for Category Items
                         catList.innerHTML += `
                             <div class="category-item-row">
-                                <span style="display:flex; align-items:center;">
+                                <span class="cat-label">
                                     <span class="dot" style="background-color: ${colors[cat]};"></span> ${cat}
                                 </span>
-                                <strong>LKR ${amt.toLocaleString()}</strong>
+                                <span class="cat-amount">LKR ${amt.toLocaleString()}</span>
                             </div>`;
                     }
                 }
@@ -461,4 +458,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     updateBudgetCharts();
 });
-
