@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         updateTimerUI();
                     } else {
                         clearInterval(timerInterval);
-                        alert('Focus session complete! Time for a break.');
+                        alert('Focus session complete! Take a break.');
                         resetTimer();
                     }
                 }, 1000);
@@ -199,7 +199,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderPlannerTable(true);
     }
 
-
     // 5. GLOBAL DASHBOARD CHART UPDATERS (Home & Planner)
     function updatePlannerCharts() {
         let tasks = JSON.parse(localStorage.getItem('advanced-tasks')) || [];
@@ -241,16 +240,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // ==========================================
-    // 6. BUDGET & EXPENSE PLANNER LOGIC
+    // 6. BUDGET & EXPENSE PLANNER LOGIC (Fixed Sorting: Nearest First)
     // ==========================================
     const budgetListBody = document.getElementById('budget-list-body');
     const toggleBudgetBtn = document.getElementById('toggle-budget-form-btn');
     const budgetForm = document.getElementById('budget-form');
     
-    // Always load budget data for Global updates (Home Page)
     let transactions = JSON.parse(localStorage.getItem('budget-transactions')) || [];
-    
-    // Get today without time for future-date checking
     const getToday = () => { let d = new Date(); d.setHours(0,0,0,0); return d; }
 
     if (budgetListBody) {
@@ -264,6 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function sortTransactions() {
+            // FIXED: Nearest/Earliest Date First (Ascending order: e.g. 19 before 20)
             transactions.sort((a, b) => new Date(a.date) - new Date(b.date));
         }
 
@@ -284,7 +281,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 let isDueTodayOrOverdue = transDate <= today && !t.paid && t.dateScheduled;
 
                 if (isFuture) tr.classList.add('upcoming-row');
-                
                 if (isDueTodayOrOverdue) overdueOrTodayCount++;
 
                 let dateFormatted = transDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
@@ -307,7 +303,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 budgetListBody.appendChild(tr);
             });
 
-            // Update Bell Notification
             const bellBadge = document.getElementById('notification-badge');
             if (bellBadge) {
                 bellBadge.textContent = overdueOrTodayCount;
@@ -321,10 +316,9 @@ document.addEventListener('DOMContentLoaded', () => {
             row.classList.add('row-fading-out'); 
             setTimeout(() => {
                 transactions[index].paid = true;
-                // Move date to today upon paying
                 let d = new Date();
                 transactions[index].date = d.toISOString().split('T')[0]; 
-                transactions[index].dateScheduled = false; // no longer scheduled
+                transactions[index].dateScheduled = false; 
                 
                 sortTransactions();
                 localStorage.setItem('budget-transactions', JSON.stringify(transactions));
@@ -359,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     title: document.getElementById('trans-title').value,
                     amount: document.getElementById('trans-amount').value,
                     date: selectedDateStr,
-                    paid: transDate <= today, // automatically paid if date is past/today
+                    paid: transDate <= today, 
                     dateScheduled: transDate > today
                 });
                 
@@ -376,7 +370,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderBudgetTable(true);
     }
 
-    // UPDATE BUDGET CHARTS (Global: runs on Budget & Home pages)
     function updateBudgetCharts() {
         let totalIncome = 0;
         let totalExpense = 0;
@@ -384,7 +377,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let today = getToday();
 
         transactions.forEach(t => {
-            // Only count towards balance if it's not a future unpaid schedule
             let transDate = new Date(t.date);
             transDate.setHours(0,0,0,0);
             if(transDate <= today || t.paid) {
@@ -393,14 +385,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (t.type === 'Expense') {
                     totalExpense += amt;
                     if(catTotals[t.category] !== undefined) catTotals[t.category] += amt;
-                    else catTotals['Other'] += amt; // fallback
+                    else catTotals['Other'] += amt; 
                 }
             }
         });
 
         const netBalance = totalIncome - totalExpense;
 
-        // Update Text Elements (Budget Page & Home Page)
         const updateText = (id, val, isNet = false) => {
             let el = document.getElementById(id);
             if(el) {
@@ -415,7 +406,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateText('expense-display', totalExpense);
         updateText('home-expense-val', totalExpense);
 
-        // Update Tug-of-War Split Bar
         const updateTugBar = (incId, expId) => {
             let incBar = document.getElementById(incId);
             let expBar = document.getElementById(expId);
@@ -431,9 +421,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         updateTugBar('budget-bar-income', 'budget-bar-expense');
-        updateTugBar('bar-income', 'bar-expense'); // Home page ids
+        updateTugBar('bar-income', 'bar-expense'); 
 
-        // Update Category Donut Chart (Budget Page only)
         const donutChart = document.getElementById('donut-chart-bg');
         const catList = document.getElementById('category-list');
         const donutTotal = document.getElementById('donut-total');
@@ -453,8 +442,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         gradientStops.push(`${colors[cat]} ${currentPct}% ${currentPct + pct}%`);
                         currentPct += pct;
 
-                        // Add to list
-                        catList.innerHTML += `<div class="stat-item"><span class="dot" style="background-color: ${colors[cat]};"></span> ${cat}: <strong>LKR ${amt.toLocaleString()}</strong></div>`;
+                        // Wider layout row for categories
+                        catList.innerHTML += `
+                            <div class="category-item-row">
+                                <span style="display:flex; align-items:center;">
+                                    <span class="dot" style="background-color: ${colors[cat]};"></span> ${cat}
+                                </span>
+                                <strong>LKR ${amt.toLocaleString()}</strong>
+                            </div>`;
                     }
                 }
                 donutChart.style.background = `conic-gradient(${gradientStops.join(', ')})`;
