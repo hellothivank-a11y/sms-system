@@ -3,70 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudySphere | Student Life Hub</title>
+    <title>Home | StudySphere</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Vue.js CDN for Community Integration -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body>
     <div class="app-container">
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
-            <div class="sidebar-top">
-                <a href="index.html" class="sidebar-brand">StudySphere.</a>
-            </div>
+            <div class="sidebar-top"><a href="index.html" class="sidebar-brand">StudySphere.</a></div>
             <nav class="sidebar-nav">
-                <a href="index.html" class="nav-item active">
-                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-                    <span>Home</span>
-                </a>
-                <a href="planner.html" class="nav-item">
-                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
-                    <span>Planner</span>
-                </a>
-                <a href="community.html" class="nav-item">
-                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                    <span>Community</span>
-                </a>
-                <a href="wellness.html" class="nav-item">
-                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                    <span>Wellness</span>
-                </a>
-                <a href="budget.html" class="nav-item">
-                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                    <span>Budget</span>
-                </a>
+                <a href="index.html" class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg><span>Home</span></a>
+                <a href="planner.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg><span>Planner</span></a>
+                <a href="community.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 1 0 7.75"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span>Community</span></a>
+                <a href="wellness.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg><span>Wellness</span></a>
+                <a href="budget.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg><span>Budget</span></a>
             </nav>
             <div class="sidebar-footer">
-                <a href="contact.html" class="nav-item">
-                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                    <span>Support</span>
-                </a>
-                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+                <a href="contact.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><span>Support</span></a>
+                <button id="theme-toggle" class="theme-toggle-btn">
                     <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line></svg>
                     <span class="theme-label">Appearance</span>
                 </button>
             </div>
         </aside>
 
-        <!-- Main Workspace -->
+        <!-- Main Content -->
         <main class="main-content">
             <header class="dashboard-header">
                 <div>
-                    <span class="status-badge">Academic Year 2025/2026</span>
-                    <h1 class="welcome-title">Good Day, Student.</h1>
-                    <p class="welcome-subtitle" id="live-date">Loading date...</p>
-                </div>
-                <div class="header-actions">
-                    <a href="planner.html" class="btn btn-primary">+ New Task</a>
+                    <span class="status-badge" id="live-date">Today</span>
+                    <h1 class="welcome-title">Welcome back, Student</h1>
+                    <p class="welcome-subtitle">Here is your daily academic & campus life snapshot.</p>
                 </div>
             </header>
 
-            <!-- Fixed 2-Column Grid for Home Dashboard -->
-            <section class="dashboard-grid home-grid">
-                
-                <!-- Widget 1: Progress -->
+            <!-- Grid Row 1: Academic & Finance Overview -->
+            <section class="dashboard-grid">
+                <!-- Academic Task Progress -->
                 <div class="dash-card">
                     <div class="card-header">
                         <h3>Academic Progress</h3>
@@ -87,52 +61,63 @@
                     </div>
                 </div>
 
-                <!-- Widget 2: Financial -->
+                <!-- Financial Balance Overview -->
                 <div class="dash-card">
                     <div class="card-header">
-                        <h3>Financial Status</h3>
-                        <a href="budget.html" class="card-link">View Budget &rarr;</a>
+                        <h3>Financial Summary</h3>
+                        <a href="budget.html" class="card-link">Manage Budget &rarr;</a>
                     </div>
                     <div class="financial-summary-content">
-                        <div class="balance-display">
+                        <div class="balance-display" style="text-align: center;">
                             <span class="balance-label">Net Remaining Balance</span>
                             <h2 class="balance-amount" id="home-net-balance">LKR 0.00</h2>
                         </div>
-                        <div class="tug-bar-container">
+                        <div class="tug-bar-container large-tug-bar">
                             <div class="tug-bar-income" id="bar-income" style="width: 50%;"></div>
                             <div class="tug-bar-expense" id="bar-expense" style="width: 50%;"></div>
                         </div>
                         <div class="bar-legend">
-                            <span class="legend-income">Income: <strong id="home-income-val">LKR 0</strong></span>
-                            <span class="legend-expense">Expenses: <strong id="home-expense-val">LKR 0</strong></span>
+                            <span class="legend-income">Total Income<br><strong id="home-income-val">LKR 0</strong></span>
+                            <span class="legend-expense" style="text-align: right;">Total Expenses<br><strong id="home-expense-val">LKR 0</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Grid Row 2: Wellness & Community Hub Integration -->
+            <section class="dashboard-grid">
+                <!-- Wellness Snapshot Widget -->
+                <div class="dash-card">
+                    <div class="card-header">
+                        <h3>Daily Wellness</h3>
+                        <a href="wellness.html" class="card-link">Wellness Hub &rarr;</a>
+                    </div>
+                    <div class="home-widget-row">
+                        <div class="home-widget-box">
+                            <span class="widget-title">Current Mood</span>
+                            <strong id="home-mood-val" class="widget-value">Not Logged</strong>
+                        </div>
+                        <div class="home-widget-box">
+                            <span class="widget-title">Hydration</span>
+                            <strong id="home-water-val" class="widget-value">0 / 8 Glasses</strong>
                         </div>
                     </div>
                 </div>
 
-                <!-- Widget 3: Pomodoro -->
+                <!-- Campus Community Snapshot Widget -->
                 <div class="dash-card">
                     <div class="card-header">
-                        <h3>Focus Session</h3>
-                        <span class="badge-sm">Pomodoro</span>
-                    </div>
-                    <div class="quick-focus-content">
-                        <div class="mini-timer-display">25:00</div>
-                        <p class="card-desc" style="text-align: center;">Boost cognitive retention with interval study sessions.</p>
-                        <a href="planner.html" class="btn btn-secondary full-width">Start Focus Timer</a>
-                    </div>
-                </div>
-
-                <!-- Widget 4: Community -->
-                <div class="dash-card">
-                    <div class="card-header">
-                        <h3>Community Pulse</h3>
+                        <h3>Community Activity</h3>
                         <a href="community.html" class="card-link">Join Forum &rarr;</a>
                     </div>
-                    <div class="community-preview-content">
-                        <div class="forum-preview-item">
-                            <span class="forum-tag">Discussion</span>
-                            <p class="forum-title">Best study routines for EEI3346 Web App development?</p>
-                            <span class="forum-meta">3 replies &bull; 10m ago</span>
+                    <div class="home-widget-row">
+                        <div class="home-widget-box">
+                            <span class="widget-title">Forum Discussions</span>
+                            <strong id="home-forum-count" class="widget-value">0 Discussions</strong>
+                        </div>
+                        <div class="home-widget-box">
+                            <span class="widget-title">Total Poll Votes</span>
+                            <strong id="home-poll-count" class="widget-value">0 Votes</strong>
                         </div>
                     </div>
                 </div>
@@ -142,4 +127,3 @@
     <script src="main.js"></script>
 </body>
 </html>
-
