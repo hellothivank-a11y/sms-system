@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Community | StudySphere</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Vue.js 3 CDN (Required for Project Marks) -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-top"><a href="index.html" class="sidebar-brand">StudySphere.</a></div>
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg><span>Home</span></a>
+                <a href="planner.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg><span>Planner</span></a>
+                <a href="community.html" class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 1 0 7.75"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span>Community</span></a>
+                <a href="wellness.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg><span>Wellness</span></a>
+                <a href="budget.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" x2="12" y1="2" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg><span>Budget</span></a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="contact.html" class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg><span>Support</span></a>
+                <button id="theme-toggle" class="theme-toggle-btn">
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line></svg>
+                    <span class="theme-label">Appearance</span>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div>
+                    <span class="status-badge">Student Hub</span>
+                    <h1 class="welcome-title">Campus Community Forum</h1>
+                </div>
+            </header>
+
+            <!-- VUE.JS APPLICATION CONTAINER -->
+            <div id="vue-forum-app">
+                <section class="dashboard-grid">
+                    <!-- Vue Forum Discussion Form & List -->
+                    <div class="dash-card" style="grid-column: span 2;">
+                        <div class="card-header">
+                            <h3>Discussion Forum</h3>
+                            <span class="badge-sm">Powered by Vue.js</span>
+                        </div>
+
+                        <!-- Post Creation Box -->
+                        <div class="forum-create-box">
+                            <input type="text" v-model="authorInput" placeholder="Your Name or Student ID" class="forum-input">
+                            <textarea v-model="postInput" placeholder="Ask a question or start a discussion..." class="forum-textarea" rows="3"></textarea>
+                            <div class="form-actions-row">
+                                <button @click="addPost" class="btn btn-primary" :disabled="!postInput.trim()">Post Discussion</button>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Post Feed -->
+                        <div class="forum-feed">
+                            <div v-if="posts.length === 0" class="empty-feed">
+                                No discussions yet. Be the first student to start a topic!
+                            </div>
+                            <div v-for="(post, index) in posts" :key="index" class="forum-post-card">
+                                <div class="post-header">
+                                    <strong>{{ post.author }}</strong>
+                                    <span class="post-date">{{ post.date }}</span>
+                                </div>
+                                <p class="post-content">{{ post.content }}</p>
+                                <div class="post-actions">
+                                    <button @click="likePost(index)" class="btn-like">
+                                        👍 {{ post.likes }} {{ post.likes === 1 ? 'Like' : 'Likes' }}
+                                    </button>
+                                    <button @click="deletePost(index)" class="btn-delete-sm">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Polls & FAQ Section -->
+            <section class="dashboard-grid">
+                <!-- Interactive Poll Card -->
+                <div class="dash-card">
+                    <div class="card-header">
+                        <h3>Campus Student Poll</h3>
+                        <span class="badge-sm">Active</span>
+                    </div>
+                    <p class="card-desc">Where do you prefer to study during exam weeks?</p>
+                    <div class="poll-options-container" id="poll-container">
+                        <button class="poll-btn" onclick="votePoll(0)">
+                            <span>📚 Main Library</span>
+                            <strong id="poll-count-0">0 votes</strong>
+                        </button>
+                        <button class="poll-btn" onclick="votePoll(1)">
+                            <span>🏠 Home / Hostel</span>
+                            <strong id="poll-count-1">0 votes</strong>
+                        </button>
+                        <button class="poll-btn" onclick="votePoll(2)">
+                            <span>☕ Coffee Shop / Study Cafe</span>
+                            <strong id="poll-count-2">0 votes</strong>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- FAQ Accordion Card -->
+                <div class="dash-card">
+                    <div class="card-header">
+                        <h3>Campus FAQs</h3>
+                    </div>
+                    <div class="faq-accordion">
+                        <div class="faq-item">
+                            <button class="faq-question">How do I reset my StudySphere dashboard data? <span>+</span></button>
+                            <div class="faq-answer"><p>You can clear your browser's local storage or use the reset buttons inside the Planner and Budget sections.</p></div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question">Is my budget data shared with anyone? <span>+</span></button>
+                            <div class="faq-answer"><p>No, all your personal budget and schedule details are stored locally on your own device for total privacy.</p></div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question">How does the Pomodoro timer work? <span>+</span></button>
+                            <div class="faq-answer"><p>It uses 25-minute focus intervals followed by short breaks to keep your study sessions effective without burnout.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Main Logic + Vue Forum Script -->
+    <script src="main.js"></script>
+    <script>
+        // Vue.js 3 App Initialization for Forum Requirement
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    authorInput: '',
+                    postInput: '',
+                    posts: JSON.parse(localStorage.getItem('studysphere-forum-posts')) || [
+                        {
+                            author: 'Saman Perera (BSE)',
+                            content: 'Has anyone started working on the EE13346 Mini Project? Looking for team discussions on Vue.js integration.',
+                            date: '20 Jul 2026',
+                            likes: 4
+                        },
+                        {
+                            author: 'Nipuni K.',
+                            content: 'The campus library is open till 8:00 PM during exam week. Make sure to bring your student ID!',
+                            date: '21 Jul 2026',
+                            likes: 7
+                        }
+                    ]
+                }
+            },
+            methods: {
+                addPost() {
+                    if (!this.postInput.trim()) return;
+                    
+                    const newPost = {
+                        author: this.authorInput.trim() || 'Anonymous Student',
+                        content: this.postInput.trim(),
+                        date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
+                        likes: 0
+                    };
+
+                    this.posts.unshift(newPost);
+                    this.savePosts();
+
+                    this.postInput = '';
+                    this.authorInput = '';
+                },
+                likePost(index) {
+                    this.posts[index].likes++;
+                    this.savePosts();
+                },
+                deletePost(index) {
+                    this.posts.splice(index, 1);
+                    this.savePosts();
+                },
+                savePosts() {
+                    localStorage.setItem('studysphere-forum-posts', JSON.stringify(this.posts));
+                }
+            }
+        }).mount('#vue-forum-app');
+
+        // FAQ Accordion Script
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Simple Poll Script
+        let pollVotes = JSON.parse(localStorage.getItem('studysphere-poll')) || [12, 18, 5];
+        function updatePollUI() {
+            pollVotes.forEach((v, i) => {
+                const el = document.getElementById(`poll-count-${i}`);
+                if (el) el.textContent = `${v} votes`;
+            });
+        }
+        window.votePoll = function(index) {
+            pollVotes[index]++;
+            localStorage.setItem('studysphere-poll', JSON.stringify(pollVotes));
+            updatePollUI();
+        }
+        updatePollUI();
+    </script>
+</body>
+</html>
