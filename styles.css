@@ -6,7 +6,6 @@
     --color-success: #34A853;
     --color-danger: #EA4335;
     
-    /* Category Colors */
     --cat-food: #F29900;
     --cat-travel: #1A73E8;
     --cat-edu: #EAB308;
@@ -75,7 +74,6 @@ body {
 .welcome-title { font-size: 2.4rem; font-weight: 600; letter-spacing: -1px; }
 .welcome-subtitle { color: var(--text-muted); font-size: 1rem; margin-top: 0.2rem; }
 
-/* Dashboard Grid */
 .dashboard-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-bottom: 2.5rem; }
 @media (max-width: 900px) { .dashboard-grid { grid-template-columns: 1fr; } }
 .dash-card { background-color: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-soft); display: flex; flex-direction: column; }
@@ -83,7 +81,6 @@ body {
 .card-header h3 { font-size: 1.1rem; font-weight: 600; }
 .card-link { color: var(--color-primary); text-decoration: none; font-size: 0.85rem; font-weight: 500; }
 
-/* Buttons */
 .btn { display: inline-flex; align-items: center; justify-content: center; padding: 10px 20px; border-radius: var(--radius-md); font-size: 0.9rem; font-weight: 500; border: 1px solid transparent; cursor: pointer; transition: all 0.2s ease; }
 .btn-primary { background-color: var(--color-primary); color: #FFFFFF; }
 .btn-primary:hover { background-color: var(--color-primary-hover); }
@@ -91,20 +88,13 @@ body {
 .btn-secondary:hover { background-color: var(--border-subtle); }
 .badge-sm { font-size: 0.75rem; padding: 2px 8px; background-color: var(--border-subtle); border-radius: 4px; color: var(--text-muted); }
 
-/* Progress & Circle Charts */
-.progress-summary-content { display: flex; align-items: center; gap: 2rem; flex: 1; }
-.circle-chart-preview, .donut-chart-preview { width: 110px; height: 110px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.5s ease; background: var(--border-subtle); }
-.circle-inner { width: 88px; height: 88px; border-radius: 50%; background-color: var(--bg-surface); display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.chart-percent { font-weight: 600; font-size: 1.1rem; }
-.chart-sub { font-size: 0.65rem; color: var(--text-muted); text-align: center;}
-.stats-list { display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.85rem; }
-.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
-.dot-todo { background-color: #86868B; }
-.dot-progress { background-color: var(--color-primary); }
-.dot-done { background-color: var(--color-success); }
+/* Donut Chart & Layout */
+.budget-breakdown-row { gap: 2.5rem; align-items: center; }
+.large-donut { width: 130px; height: 130px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--border-subtle); flex-shrink: 0; }
+.large-donut-inner { width: 102px; height: 102px; border-radius: 50%; background-color: var(--bg-surface); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.category-list-wide { flex: 1; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.85rem; }
+.category-item-row { display: flex; justify-content: space-between; align-items: center; width: 100%; }
 
-/* Categories & Budget Details */
-.category-list .stat-item { display: flex; justify-content: space-between; width: 150px; }
 .cat-food { background-color: var(--cat-food); }
 .cat-travel { background-color: var(--cat-travel); }
 .cat-edu { background-color: var(--cat-edu); }
@@ -138,20 +128,28 @@ body {
 .timer-progress { fill: none; stroke: var(--color-primary); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 565.5; stroke-dashoffset: 0; transition: stroke-dashoffset 1s linear; }
 .timer-wrapper.large-timer .timer-display-box { font-size: 3.5rem; font-weight: 300; letter-spacing: -1.5px; z-index: 2; }
 
-/* Inline Forms */
+/* Inline Forms & Right Aligned Buttons */
 .inline-task-form { display: none; background-color: var(--bg-app); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); margin-bottom: 2rem; }
 .inline-task-form.active { display: block; }
 .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 1.2rem; }
 .form-grid input, .form-grid select { padding: 10px 14px; border: 1px solid var(--border-subtle); border-radius: 8px; background-color: var(--bg-surface); color: var(--text-main); font-size: 0.9rem; outline: none; }
 .form-grid input:focus, .form-grid select:focus { border-color: var(--color-primary); }
 
-/* Table Styles & Animations */
+/* Enforcement for Form Buttons on Right */
+.form-actions, .right-align-actions {
+    display: flex !important;
+    justify-content: flex-end !important;
+    gap: 0.8rem !important;
+    width: 100% !important;
+}
+
+/* Table Styles */
 .table-responsive { overflow-x: auto; overflow-y: visible; }
 .minimal-table { width: 100%; border-collapse: collapse; text-align: left; margin-top: 1rem; }
 .minimal-table th, .minimal-table td { padding: 1rem 0.8rem; border-bottom: 1px solid var(--border-subtle); font-size: 0.9rem; }
 .minimal-table th { font-weight: 600; color: var(--text-muted); }
 
-/* Badges for Budget */
+/* Badges */
 .trans-badge { padding: 4px 10px; border-radius: 100px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
 .badge-income { background-color: rgba(52, 168, 83, 0.12); color: var(--color-success); }
 .badge-expense { background-color: rgba(234, 67, 53, 0.12); color: var(--color-danger); }
@@ -161,13 +159,11 @@ body {
 .btn-pay-now { background: transparent; border: 1px solid var(--color-success); color: var(--color-success); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; cursor: pointer; margin-right: 8px; transition: all 0.2s; }
 .btn-pay-now:hover { background: var(--color-success); color: white; }
 
-/* Row Fading */
 .row-transition { transition: opacity 0.3s ease; opacity: 1; }
 .row-fading-out { opacity: 0 !important; }
 .row-fading-in { animation: simpleFadeIn 0.4s ease forwards; }
 @keyframes simpleFadeIn { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: translateY(0); } }
 
-/* Shared Planner Badges */
 .priority-badge { padding: 4px 10px; border-radius: 100px; font-size: 0.75rem; font-weight: 500; }
 .priority-High { background-color: rgba(217, 48, 37, 0.12); color: var(--color-danger); }
 .priority-Medium { background-color: rgba(242, 153, 0, 0.12); color: #F29900; }
@@ -175,7 +171,5 @@ body {
 .btn-status-toggle { padding: 6px 14px; border-radius: 100px; font-size: 0.8rem; font-weight: 500; background: transparent; border: 1px solid var(--border-subtle); color: var(--text-muted); cursor: pointer; transition: all 0.2s ease; }
 .btn-status-toggle.in-progress { background-color: var(--color-primary); color: #FFFFFF; border-color: var(--color-primary); }
 .completed-row td { text-decoration: line-through; opacity: 0.4; }
-
 .delete-btn-with-icon { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: none; color: var(--color-danger); cursor: pointer; font-size: 0.85rem; transition: opacity 0.2s; }
 .delete-btn-with-icon:hover { opacity: 0.7; }
-
