@@ -13,11 +13,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Home Page Date
+    // 2. Home Page Live Date & Home Widgets Sync
     const liveDateEl = document.getElementById('live-date');
     if (liveDateEl) {
         liveDateEl.textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     }
+
+    function updateHomeSnapshotWidgets() {
+        // Wellness Sync
+        const hMood = document.getElementById('home-mood-val');
+        const hWater = document.getElementById('home-water-val');
+        if (hMood) hMood.textContent = localStorage.getItem('wellness-mood') || 'Not Logged';
+        if (hWater) {
+            let wCount = parseInt(localStorage.getItem('wellness-water')) || 0;
+            hWater.textContent = `${wCount} / 8 Glasses`;
+        }
+
+        // Community Sync
+        const hForum = document.getElementById('home-forum-count');
+        const hPoll = document.getElementById('home-poll-count');
+        if (hForum) {
+            let posts = JSON.parse(localStorage.getItem('studysphere-forum-posts')) || [];
+            hForum.textContent = `${posts.length} Discussions`;
+        }
+        if (hPoll) {
+            let votes = JSON.parse(localStorage.getItem('studysphere-poll')) || [12, 18, 5];
+            let totalVotes = votes.reduce((a, b) => a + b, 0);
+            hPoll.textContent = `${totalVotes} Votes`;
+        }
+    }
+    updateHomeSnapshotWidgets();
 
     // 3. POMODORO TIMER LOGIC
     const minsDisplay = document.getElementById('minutes');
@@ -238,7 +263,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     updatePlannerCharts();
 
-
     // 6. BUDGET & EXPENSE PLANNER LOGIC
     const budgetListBody = document.getElementById('budget-list-body');
     const toggleBudgetBtn = document.getElementById('toggle-budget-form-btn');
@@ -248,7 +272,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const getToday = () => { let d = new Date(); d.setHours(0,0,0,0); return d; }
 
     if (budgetListBody) {
-        
         if (toggleBudgetBtn && budgetForm) {
             toggleBudgetBtn.addEventListener('click', () => budgetForm.classList.toggle('active'));
             document.getElementById('cancel-budget-form-btn').addEventListener('click', () => {
@@ -439,7 +462,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         gradientStops.push(`${colors[cat]} ${currentPct}% ${currentPct + pct}%`);
                         currentPct += pct;
 
-                        // Structured Row Fix for Category Items
                         catList.innerHTML += `
                             <div class="category-item-row">
                                 <span class="cat-label">
@@ -457,12 +479,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     updateBudgetCharts();
-});
 
-
-// ==========================================
     // 7. WELLNESS PAGE LOGIC
-    // ==========================================
     const moodBtns = document.querySelectorAll('.mood-btn');
     const moodLabel = document.getElementById('today-mood-label');
     
@@ -486,7 +504,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Water Tracker
     const waterCountText = document.getElementById('water-count-text');
     const addWaterBtn = document.getElementById('add-water-btn');
     const removeWaterBtn = document.getElementById('remove-water-btn');
@@ -518,7 +535,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateWaterUI();
     }
 
-    // Wellness Habits Tracker
     const habitCheckboxes = document.querySelectorAll('.wellness-habit-list input[type="checkbox"]');
     const habitBadge = document.getElementById('habit-progress-badge');
 
@@ -544,3 +560,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateHabitUI();
     }
+});
