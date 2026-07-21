@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         liveDateEl.textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     }
 
-    // 3. Animated Pomodoro Timer with Custom Input
+    // 3. Animated Pomodoro Timer with Custom Input Fix
     const minsDisplay = document.getElementById('minutes');
     const secsDisplay = document.getElementById('seconds');
     const startBtn = document.getElementById('timer-start');
@@ -30,10 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (minsDisplay && startBtn) {
         let timerInterval;
-        let totalTime = (timeInput ? parseInt(timeInput.value) : 25) * 60; 
+        let totalTime = (timeInput && timeInput.value ? parseInt(timeInput.value) : 25) * 60; 
         let timeRemaining = totalTime; 
         let isRunning = false;
-        const circleCircumference = 440; // Approx 2 * pi * r (70)
+        const circleCircumference = 440; 
 
         function updateTimerUI() {
             let m = Math.floor(timeRemaining / 60);
@@ -41,19 +41,20 @@ document.addEventListener('DOMContentLoaded', () => {
             minsDisplay.textContent = m.toString().padStart(2, '0');
             secsDisplay.textContent = s.toString().padStart(2, '0');
             
-            // Update SVG Ring Progress
+            // Sync SVG Ring
             if (progressRing) {
-                let progressPercent = timeRemaining / totalTime;
+                let progressPercent = totalTime > 0 ? (timeRemaining / totalTime) : 0;
                 let dashOffset = circleCircumference - (progressPercent * circleCircumference);
                 progressRing.style.strokeDashoffset = dashOffset;
             }
         }
 
+        // Fix: Use 'input' event for real-time update when typing
         if (timeInput) {
-            timeInput.addEventListener('change', () => {
+            timeInput.addEventListener('input', () => {
                 if(!isRunning) {
                     let val = parseInt(timeInput.value);
-                    if(val < 1) val = 1;
+                    if(isNaN(val) || val < 1) return; // Prevent errors if field is empty or negative
                     totalTime = val * 60;
                     timeRemaining = totalTime;
                     updateTimerUI();
@@ -89,7 +90,9 @@ document.addEventListener('DOMContentLoaded', () => {
         function resetTimer() {
             clearInterval(timerInterval);
             isRunning = false;
-            totalTime = (timeInput ? parseInt(timeInput.value) : 25) * 60;
+            let val = timeInput && timeInput.value ? parseInt(timeInput.value) : 25;
+            if(isNaN(val) || val < 1) val = 25;
+            totalTime = val * 60;
             timeRemaining = totalTime;
             updateTimerUI();
             startBtn.textContent = 'Start Focus';
@@ -99,10 +102,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         resetBtn.addEventListener('click', resetTimer);
-        updateTimerUI(); // Initial setup
+        updateTimerUI(); 
     }
 
-    // 4. Advanced Task Manager (With Animations & Complex Charts)
+    // 4. Advanced Task Manager (Animations & Charts)
     const toggleFormBtn = document.getElementById('toggle-task-form-btn');
     const taskForm = document.getElementById('task-form');
     const tableBody = document.getElementById('task-list-body');
@@ -126,13 +129,16 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Animated Render Function
+        // Render Table logic
         function renderPlannerTable(isInitial = false) {
             tableBody.innerHTML = '';
             tasks.forEach((task, index) => {
                 const tr = document.createElement('tr');
                 tr.className = 'row-transition';
-                if (!isInitial) tr.classList.add('row-fading-in'); // Add fade in animation
+                
+                // Add pop-up fade in animation for re-renders
+                if (!isInitial) tr.classList.add('row-fading-in'); 
+                
                 const isDone = task.status === 'Completed';
                 if (isDone) tr.classList.add('completed-row');
 
@@ -162,7 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Multi-Color Circle Chart Update (Done + Working)
         function updateCharts() {
             let todo = 0, working = 0, done = 0;
             tasks.forEach(t => {
@@ -173,7 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let total = tasks.length;
             
-            // Planner Page Elements
             const pRate = document.getElementById('planner-completion-rate');
             const pChart = document.getElementById('planner-chart-bg');
             if(pRate) pRate.textContent = total > 0 ? Math.round((done / total) * 100) + '%' : '0%';
@@ -181,7 +185,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if(document.getElementById('planner-progress-count')) document.getElementById('planner-progress-count').textContent = working;
             if(document.getElementById('planner-done-count')) document.getElementById('planner-done-count').textContent = done;
 
-            // Home Page Elements
             const hRate = document.getElementById('completion-rate');
             const hChart = document.getElementById('home-chart-bg');
             if(hRate) hRate.textContent = total > 0 ? Math.round((done / total) * 100) + '%' : '0%';
@@ -189,24 +192,29 @@ document.addEventListener('DOMContentLoaded', () => {
             if(document.getElementById('progress-count')) document.getElementById('progress-count').textContent = working;
             if(document.getElementById('done-count')) document.getElementById('done-count').textContent = done;
 
-            // Calculate gradient percentages for Done (Green) and Working (Blue)
             if (total > 0 && (pChart || hChart)) {
                 let donePct = (done / total) * 100;
                 let workingPct = donePct + ((working / total) * 100);
                 
-                // Color Logic: 0 to donePct is Green. donePct to workingPct is Blue. Rest is Gray.
                 let gradientString = `conic-gradient(var(--color-success) 0% ${donePct}%, var(--color-primary) ${donePct}% ${workingPct}%, var(--border-subtle) ${workingPct}% 100%)`;
                 
                 if(pChart) pChart.style.background = gradientString;
                 if(hChart) hChart.style.background = gradientString;
+            } else if (pChart || hChart) {
+                let defaultGrad = `conic-gradient(var(--border-subtle) 0% 100%)`;
+                if(pChart) pChart.style.background = defaultGrad;
+                if(hChart) hChart.style.background = defaultGrad;
             }
         }
 
-        // Wrapper to Handle Row Animation before sorting
+        // Animation Wrapper
         window.animateRowChange = function(index, type) {
             let row = tableBody.children[index];
-            row.classList.add('row-fading-out'); // start fade out animation
             
+            // 1. Add class to start fade out (fades up slightly)
+            row.classList.add('row-fading-out'); 
+            
+            // 2. Wait for CSS transition (400ms) to complete before re-ordering
             setTimeout(() => {
                 if (type === 'checkbox') {
                     tasks[index].status = tasks[index].status === 'Completed' ? 'To Do' : 'Completed';
@@ -216,20 +224,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 sortTasks();
                 localStorage.setItem('advanced-tasks', JSON.stringify(tasks));
-                renderPlannerTable(); // re-renders with fade-in class
+                
+                // 3. Render table. (isInitial = false adds the pop-up fade in animation)
+                renderPlannerTable(false); 
                 updateCharts();
-            }, 300); // Wait 300ms for CSS fade out to finish
+            }, 400); 
         }
 
-        // Delete with Confirmation
         window.confirmDelete = function(index) {
-            if(confirm("Are you sure you want to delete this task?")) {
-                tasks.splice(index, 1);
-                sortTasks();
-                localStorage.setItem('advanced-tasks', JSON.stringify(tasks));
-                renderPlannerTable(true);
-                updateCharts();
-            }
+            let row = tableBody.children[index];
+            row.classList.add('row-fading-out'); // Animate out before delete
+            
+            setTimeout(() => {
+                if(confirm("Are you sure you want to delete this task?")) {
+                    tasks.splice(index, 1);
+                    sortTasks();
+                    localStorage.setItem('advanced-tasks', JSON.stringify(tasks));
+                    renderPlannerTable(false);
+                    updateCharts();
+                } else {
+                    renderPlannerTable(false); // Restore if cancelled
+                }
+            }, 400);
         }
 
         if(taskForm) {
@@ -247,13 +263,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('advanced-tasks', JSON.stringify(tasks));
                 taskForm.reset();
                 taskForm.classList.remove('active');
-                renderPlannerTable(true);
+                renderPlannerTable(false); // Animate new entry
                 updateCharts();
             });
         }
 
         sortTasks();
-        renderPlannerTable(true);
+        renderPlannerTable(true); // isInitial = true (no pop-up animation on first load)
         updateCharts();
     }
 });
